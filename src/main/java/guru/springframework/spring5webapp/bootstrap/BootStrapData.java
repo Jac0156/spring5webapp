@@ -25,6 +25,15 @@ public class BootStrapData implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
+        Publisher publisher = new Publisher();
+        publisher.setName("Pub Name");
+        publisher.setAddressLine1("1 Street");
+        publisher.setCity("City Name");
+        publisher.setState("ST");
+        publisher.setZip("12345");
+
+        publisherRepository.save(publisher);
+
         Author eric = new Author("Eric", "Evans");
         Book ddd = new Book("Domain driven design", "123123");
 
@@ -33,6 +42,9 @@ public class BootStrapData implements CommandLineRunner {
 
         eric.getBooks().add(ddd);
         ddd.getAuthors().add(eric);
+
+        ddd.setPublisher(publisher);
+        publisher.getBooks().add(ddd);
 
         authorRepository.save(eric);
         bookRepository.save(ddd);
@@ -46,15 +58,11 @@ public class BootStrapData implements CommandLineRunner {
         rod.getBooks().add(noEJB);
         noEJB.getAuthors().add(rod);
 
+        noEJB.setPublisher(publisher);
+        publisher.getBooks().add(noEJB);
+
         authorRepository.save(rod);
         bookRepository.save(noEJB);
-
-        Publisher publisher = new Publisher();
-        publisher.setName("Pub Name");
-        publisher.setAddressLine1("1 Street");
-        publisher.setCity("City Name");
-        publisher.setState("ST");
-        publisher.setZip("12345");
 
         publisherRepository.save(publisher);
 
@@ -62,6 +70,7 @@ public class BootStrapData implements CommandLineRunner {
         System.out.println("Number of Books: " + bookRepository.count());
         System.out.println("Number of authors: " + authorRepository.count());
         System.out.println("Number publisher: " + publisherRepository.count());
+        System.out.println("Publisher number of Books: " + publisher.getBooks().size());
 
     }
 }
