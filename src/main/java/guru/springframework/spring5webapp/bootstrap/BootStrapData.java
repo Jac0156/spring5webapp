@@ -26,7 +26,7 @@ public class BootStrapData implements CommandLineRunner {
     public void run(String... args) throws Exception {
 
         Publisher publisher = new Publisher();
-        publisher.setName("Pub Name");
+        publisher.setName("MyPub");
         publisher.setAddressLine1("1 Street");
         publisher.setCity("City Name");
         publisher.setState("ST");
